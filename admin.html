@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Kelola Berita & Video</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Public Sans', 'sans-serif'] },
+                    colors: {
+                        primary: '#696cff',
+                        primaryHover: '#5f61e6',
+                        bgBody: '#f5f5f9',
+                        textMain: '#566a7f',
+                        textMuted: '#a1acb8',
+                        danger: '#ff3e1d',
+                        warning: '#ffab00',
+                        success: '#71dd37',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f5f5f9; color: #566a7f; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden text-sm">
+
+    <aside class="w-64 bg-white shadow-[0_2px_6px_0_rgba(67,89,113,0.12)] flex-shrink-0 z-10 flex flex-col">
+        <div class="h-16 flex items-center px-6 pt-4 font-bold text-xl text-gray-800 tracking-wide">
+            <i class="fa-solid fa-cube text-primary mr-2 text-2xl"></i> admin<span class="font-light">Panel</span>
+        </div>
+        <div class="p-4 mt-4 flex-1 overflow-y-auto">
+            <p class="text-xs font-semibold text-textMuted uppercase mb-2 pl-2">Menu Utama</p>
+            <ul class="space-y-1">
+                <li>
+                    <a href="#" onclick="switchTab('daftar-berita', this)" class="menu-link flex items-center px-3 py-2.5 bg-primary/10 text-primary rounded-md font-medium transition-colors">
+                        <i class="fa-solid fa-newspaper w-6 text-center mr-2"></i> Kelola Berita
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="switchTab('tambah-berita', this)" class="menu-link flex items-center px-3 py-2.5 text-textMain hover:bg-gray-100 rounded-md transition-colors">
+                        <i class="fa-solid fa-pen-to-square w-6 text-center mr-2"></i> Kelola Instagram
+                    </a>
+                </li>
+                <li>
+                    <a href="#" onclick="switchTab('kelola-video', this)" class="menu-link flex items-center px-3 py-2.5 text-textMain hover:bg-gray-100 rounded-md transition-colors">
+                        <i class="fa-solid fa-video w-6 text-center mr-2"></i> Kelola Video
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        <nav class="h-16 m-4 px-6 bg-white rounded-lg shadow-[0_2px_6px_0_rgba(67,89,113,0.12)] flex items-center justify-between flex-shrink-0">
+            <div class="flex items-center text-textMuted w-1/3">
+                <i class="fa-solid fa-search mr-2"></i>
+                <input type="text" placeholder="Search (Ctrl+/)" class="w-full focus:outline-none text-textMain">
+            </div>
+            <div class="flex items-center space-x-4">
+                <i class="fa-regular fa-bell text-xl cursor-pointer hover:text-primary"></i>
+                <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold">
+                    A
+                </div>
+            </div>
+        </nav>
+
+        <main class="flex-1 overflow-y-auto p-4 pt-0">
+            
+            <div id="daftar-berita" class="tab-content active space-y-4 max-w-6xl mx-auto">
+                <div class="bg-white rounded-lg shadow-sm p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <h4 class="text-lg font-semibold text-gray-800">Daftar Berita</h4>
+                    <button onclick="switchTab('tambah-berita', document.querySelectorAll('.menu-link')[1])" class="bg-primary hover:bg-primaryHover text-white px-4 py-2 rounded shadow-sm flex items-center transition-colors">
+                        <i class="fa-solid fa-plus mr-2"></i> Tambah Berita
+                    </button>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <div class="flex">
+                        <input type="text" placeholder="Cari judul atau isi berita..." class="w-full border border-gray-300 rounded-l-md px-4 py-2 focus:outline-none focus:border-primary">
+                        <button class="bg-primary text-white px-6 py-2 rounded-r-md hover:bg-primaryHover">Cari</button>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-white rounded-lg shadow-sm p-4 flex flex-col md:flex-row gap-4 border border-transparent hover:border-gray-200">
+                        <img src="https://cms.kpk.go.id/storage/7252/conversions/Temuan-SPI-Pendidikan-2024---12-Persen-Dana-BOS-Tak-Sesuai-Peruntukan-image_large.jpg" alt="Thumbnail Berita 1" class="w-full md:w-64 h-40 object-cover rounded-md border border-gray-100">
+                        <div class="flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-1">
+                                    <h5 class="text-base font-semibold text-gray-800 line-clamp-2 leading-tight">Temuan SPI Pendidikan: 12 Persen Dana BOS Tak Sesuai Peruntukan</h5>
+                                    <span class="text-xs text-textMuted whitespace-nowrap ml-4">18 Jun 2026</span>
+                                </div>
+                                <p class="text-sm text-textMain line-clamp-3 mb-3">Komisi Pemberantasan Korupsi (KPK) merilis hasil Survei Penilaian Integritas (SPI) Pendidikan. Dalam temuan tersebut, tercatat indikasi adanya pengelolaan dana Bantuan Operasional Sekolah (BOS) yang tidak sesuai dengan peruntukannya di sejumlah wilayah, sehingga evaluasi ketat perlu segera dilakukan.</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="px-4 py-2 text-sm bg-gray-50 border border-gray-200 text-gray-700 rounded hover:bg-gray-100 shadow-sm flex items-center transition-colors focus:ring-2 focus:ring-primary/20">
+                                    Action <i class="fa-solid fa-chevron-down ml-2 text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-sm p-4 flex flex-col md:flex-row gap-4 border border-transparent hover:border-gray-200">
+                        <img src="https://asset.kompas.com/crops/abhidX_FNtmdgBFPg7vs6sEO-8w=/100x67:900x600/1200x800/data/photo/2023/10/09/6523d3ab4f9d7.jpg" alt="Thumbnail Berita 2" class="w-full md:w-64 h-40 object-cover rounded-md border border-gray-100">
+                        <div class="flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start mb-1">
+                                    <h5 class="text-base font-semibold text-gray-800 line-clamp-2 leading-tight">Pentingnya Penguatan Karakter untuk Mencegah Perundungan di Sekolah</h5>
+                                    <span class="text-xs text-textMuted whitespace-nowrap ml-4">15 Jun 2026</span>
+                                </div>
+                                <p class="text-sm text-textMain line-clamp-3 mb-3">Kementerian Pendidikan dan Kebudayaan terus mendorong program penguatan pendidikan karakter di seluruh jenjang sekolah dasar hingga menengah. Langkah ini diambil sebagai respons atas berbagai kasus perundungan antar siswa, guna menciptakan lingkungan belajar yang aman dan nyaman bagi anak.</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="px-4 py-2 text-sm bg-gray-50 border border-gray-200 text-gray-700 rounded hover:bg-gray-100 shadow-sm flex items-center transition-colors focus:ring-2 focus:ring-primary/20">
+                                    Action <i class="fa-solid fa-chevron-down ml-2 text-[10px]"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tambah-berita" class="tab-content max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-6 border-b pb-3">Tambah Berita Baru</h4>
+                    
+                    <form class="space-y-5">
+                        <div>
+                            <label class="block text-xs font-medium text-textMain mb-1">Tanggal Berita</label>
+                            <input type="date" class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-primary">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-textMain mb-1">Judul Berita</label>
+                            <input type="text" placeholder="Masukkan judul berita" class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-primary">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-textMain mb-1">Isi Berita</label>
+                            <div class="border border-gray-300 rounded-md overflow-hidden">
+                                <div class="bg-gray-50 border-b border-gray-300 px-3 py-2 flex items-center space-x-3 text-gray-600 text-sm">
+                                    <select class="bg-transparent focus:outline-none font-medium border-r pr-2"><option>Normal</option></select>
+                                    <button type="button" class="font-bold w-6 hover:text-primary">B</button>
+                                    <button type="button" class="italic w-6 hover:text-primary">I</button>
+                                    <button type="button" class="underline border-r pr-2 hover:text-primary">U</button>
+                                    <button type="button" class="w-6 hover:text-primary"><i class="fa-solid fa-align-left"></i></button>
+                                    <button type="button" class="w-6 hover:text-primary"><i class="fa-solid fa-align-center"></i></button>
+                                    <button type="button" class="border-r pr-2 hover:text-primary"><i class="fa-solid fa-align-justify"></i></button>
+                                    <button type="button" class="w-6 hover:text-primary"><i class="fa-solid fa-link"></i></button>
+                                    <button type="button" class="w-6 hover:text-primary"><i class="fa-solid fa-list-ul"></i></button>
+                                </div>
+                                <textarea rows="8" class="w-full p-3 focus:outline-none text-sm resize-y"></textarea>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-textMain mb-1">Link YouTube (opsional)</label>
+                            <input type="url" placeholder="https://www.youtube.com/watch?v=..." class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-primary">
+                            <p class="text-[11px] text-textMuted mt-1">Isi dengan link video YouTube untuk menampilkan player di halaman baca berita.</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-textMain mb-1">Link Instagram (opsional)</label>
+                            <input type="url" placeholder="https://www.instagram.com/p/..." class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-primary">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-textMain mb-1">Gambar Berita (opsional)</label>
+                            <input type="file" class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-sm file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200 cursor-pointer">
+                        </div>
+
+                        <div class="flex justify-end space-x-3 pt-4">
+                            <button type="button" onclick="switchTab('daftar-berita', document.querySelectorAll('.menu-link')[0])" class="px-5 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors">Batal</button>
+                            <button type="submit" class="px-5 py-2 bg-primary text-white rounded-md hover:bg-primaryHover transition-colors shadow-sm">Simpan Berita</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="kelola-video" class="tab-content max-w-6xl mx-auto space-y-6">
+                
+                <div class="bg-white rounded-lg shadow-sm p-4 flex items-center justify-between border border-gray-100">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-green-100 text-success flex items-center justify-center mr-4">
+                            <i class="fa-solid fa-link"></i>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-gray-800 text-base">Koneksi YouTube API</h5>
+                            <p class="text-sm text-textMain">Status: <span class="text-success font-semibold">Terhubung</span>. Siap untuk upload video.</p>
+                        </div>
+                    </div>
+                    <div class="flex space-x-2 text-sm">
+                        <button class="bg-primary text-white px-4 py-2 rounded hover:bg-primaryHover shadow-sm">Rehubungkan</button>
+                        <button class="border border-danger text-danger px-4 py-2 rounded hover:bg-red-50">Putus Koneksi</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Tambahkan Video Baru</h4>
+                    
+                    <div class="flex space-x-1 mb-6 border border-gray-200 rounded-md w-max p-1 bg-gray-50">
+                        <button class="px-4 py-2 text-sm font-medium rounded bg-white text-primary shadow-sm border border-gray-200">Upload File Langsung</button>
+                        <button class="px-4 py-2 text-sm font-medium rounded text-textMain hover:text-gray-800">Input Link YouTube</button>
+                    </div>
+
+                    <form class="space-y-5 border border-gray-200 rounded-lg p-5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-semibold text-textMuted uppercase mb-1 tracking-wider">Judul Video</label>
+                                <input type="text" placeholder="Contoh: Pentas Seni Siswa 2026" class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-primary">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-textMuted uppercase mb-1 tracking-wider">Privasi Video</label>
+                                <select class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-primary bg-white">
+                                    <option>Publik</option>
+                                    <option>Tidak Publik (Unlisted)</option>
+                                    <option>Pribadi (Private)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-textMuted uppercase mb-1 tracking-wider">File Video</label>
+                            <input type="file" class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none file:mr-4 file:py-1 file:px-3 file:rounded file:border-0 file:text-sm file:bg-[#e8ebf0] file:text-primary file:font-semibold hover:file:bg-[#d8dce2] cursor-pointer">
+                            <p class="text-[11px] text-textMuted mt-1">Format didukung: MP4, MOV, AVI, MKV, WEBM.</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-textMuted uppercase mb-1 tracking-wider">Deskripsi Video</label>
+                            <textarea rows="4" placeholder="Tuliskan deksripsi singkat..." class="w-full border border-gray-300 rounded-md p-3 text-sm focus:outline-none focus:border-primary resize-y"></textarea>
+                        </div>
+
+                        <div class="flex justify-end pt-2">
+                            <button type="submit" class="px-5 py-2.5 bg-primary text-white rounded-md hover:bg-primaryHover transition-colors shadow-sm flex items-center font-medium">
+                                <i class="fa-solid fa-arrow-up-from-bracket mr-2"></i> Mulai Upload
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm p-6 mt-6">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b pb-4">
+                        <h4 class="text-lg font-semibold text-gray-800">Daftar Video Terunggah</h4>
+                        <div class="flex">
+                            <input type="text" placeholder="Cari video..." class="w-full md:w-64 border border-gray-300 rounded-l-md px-3 py-1.5 text-sm focus:outline-none focus:border-primary">
+                            <button class="bg-gray-100 border border-gray-300 border-l-0 px-4 py-1.5 rounded-r-md hover:bg-gray-200 text-textMain"><i class="fa-solid fa-search"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex flex-col md:flex-row gap-4 border border-transparent hover:border-gray-200 p-2 rounded-lg transition-colors">
+                            <div class="relative w-full md:w-56 h-32 flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=600&auto=format&fit=crop" alt="Thumbnail" class="w-full h-full object-cover rounded-md border border-gray-200">
+                                <span class="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] font-semibold px-1.5 py-0.5 rounded">08:45</span>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between py-1">
+                                <div>
+                                    <div class="flex justify-between items-start mb-1">
+                                        <h5 class="text-base font-semibold text-gray-800 line-clamp-1 leading-tight hover:text-primary cursor-pointer">Pentas Seni Akhir Tahun TK Pembina ABA 54 2026</h5>
+                                        <span class="text-xs text-textMuted whitespace-nowrap ml-4">12 Jun 2026</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 mb-2 mt-1">
+                                        <span class="bg-success/10 text-success text-[10px] uppercase font-bold px-2 py-0.5 rounded">Publik</span>
+                                        <span class="text-xs text-textMuted"><i class="fa-solid fa-eye mr-1"></i> 1,240 ditonton</span>
+                                        <span class="text-xs text-textMuted"><i class="fa-solid fa-thumbs-up mr-1"></i> 156</span>
+                                    </div>
+                                    <p class="text-sm text-textMain line-clamp-2">Kemeriahan pentas seni akhir tahun ajaran yang diikuti oleh seluruh siswa-siswi dan dihadiri oleh para wali murid di aula sekolah.</p>
+                                </div>
+                                <div class="flex space-x-2 mt-3">
+                                    <button class="px-4 py-1.5 text-sm bg-gray-50 border border-gray-200 text-gray-700 rounded hover:bg-gray-100 shadow-sm flex items-center transition-colors focus:ring-2 focus:ring-primary/20">
+                                        Action <i class="fa-solid fa-chevron-down ml-2 text-[10px]"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="border-gray-100">
+
+                        <div class="flex flex-col md:flex-row gap-4 border border-transparent hover:border-gray-200 p-2 rounded-lg transition-colors">
+                            <div class="relative w-full md:w-56 h-32 flex-shrink-0">
+                                <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=600&auto=format&fit=crop" alt="Thumbnail" class="w-full h-full object-cover rounded-md border border-gray-200">
+                                <span class="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] font-semibold px-1.5 py-0.5 rounded">04:12</span>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between py-1">
+                                <div>
+                                    <div class="flex justify-between items-start mb-1">
+                                        <h5 class="text-base font-semibold text-gray-800 line-clamp-1 leading-tight hover:text-primary cursor-pointer">Lomba Menggambar dan Mewarnai Hari Kartini</h5>
+                                        <span class="text-xs text-textMuted whitespace-nowrap ml-4">22 Apr 2026</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 mb-2 mt-1">
+                                        <span class="bg-gray-100 text-gray-600 text-[10px] uppercase font-bold px-2 py-0.5 rounded">Unlisted</span>
+                                        <span class="text-xs text-textMuted"><i class="fa-solid fa-eye mr-1"></i> 85 ditonton</span>
+                                        <span class="text-xs text-textMuted"><i class="fa-solid fa-thumbs-up mr-1"></i> 12</span>
+                                    </div>
+                                    <p class="text-sm text-textMain line-clamp-2">Dokumentasi kegiatan lomba menggambar dan mewarnai tingkat sekolah dalam rangka memperingati Hari Kartini tahun 2026.</p>
+                                </div>
+                                <div class="flex space-x-2 mt-3">
+                                    <button class="px-4 py-1.5 text-sm bg-gray-50 border border-gray-200 text-gray-700 rounded hover:bg-gray-100 shadow-sm flex items-center transition-colors focus:ring-2 focus:ring-primary/20">
+                                        Action <i class="fa-solid fa-chevron-down ml-2 text-[10px]"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        function switchTab(tabId, element) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+
+            // Reset menu styles
+            document.querySelectorAll('.menu-link').forEach(link => {
+                link.classList.remove('bg-primary/10', 'text-primary', 'font-medium');
+                link.classList.add('text-textMain', 'hover:bg-gray-100');
+            });
+            // Set active menu style
+            element.classList.remove('text-textMain', 'hover:bg-gray-100');
+            element.classList.add('bg-primary/10', 'text-primary', 'font-medium');
+        }
+    </script>
+</body>
+</html>
